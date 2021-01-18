@@ -1,6 +1,9 @@
 import db from './index';
 import { DataTypes } from 'sequelize';
 
+import Question from './question';
+import Answer from './answer';
+
 const User = db.define('User', {
     username: {
         type: DataTypes.STRING,
@@ -12,6 +15,9 @@ const User = db.define('User', {
         allowNull: false
     }
 });
+
+User.hasMany(Question);
+User.hasMany(Answer);
 
 User.sync();
 
