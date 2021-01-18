@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.17.1",
+    "sequelize": "^6.3.5",
+    "mysql2": "^2.2.5"
   },
   "devDependencies": {
     "concurrently": "^4.0.1"
