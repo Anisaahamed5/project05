@@ -44,7 +44,7 @@ class Registration extends Component {
     }
 
     // Submit the data to the API
-    submit() {
+    async submit() {
         const data = {
             username: this.state.username, 
             password: this.state.password
@@ -56,7 +56,25 @@ class Registration extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
+        }).then((res) => {
+            return res.json();
         });  
+
+        if(response.success == true) {
+            // Registration succeeded
+            this.props.login(response.user);
+        } else {
+            // Registration failed
+            let errors = [];
+
+            if(response.error == "unique violation") {
+                errors.push("Username is already taken");
+            }
+
+            this.setState({
+                errors
+            });
+        }
     }
 
     render() {

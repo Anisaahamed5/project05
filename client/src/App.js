@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
 
@@ -14,35 +13,89 @@ import NewQuestion from './pages/new_question';
 import ViewQuestion from './pages/view_question';
 import AnswerQuestion from './pages/answer_question';
 
+import Navigation from './components/navigation';
+
 import './App.css';
 
 class App extends Component {
   state = { 
-    user: null
+    user: JSON.parse(localStorage.getItem('user')) || null
+  }
+
+  login(user) {
+    this.setState({
+      user
+    }, () => {
+      localStorage.setItem('user', JSON.stringify(this.state.user))
+    })
+  }
+
+  logout() {
+    this.setState({
+      user: null
+    }, () => {
+      localStorage.removeItem('user')
+    })
   }
 
   authenticatedRoutes() {
     if(this.state.user == null) {
-      return <Route path="/">
+      return [
+        <Route path="/login">
+          <Login login={(user) => this.login(user)}/>
+        </Route>,
+        <Route path="/register">
+          <Registration login={(user) => this.login(user)}/>
+        </Route>,
+        <Route path="/">
         <Redirect
           to={{
             pathname: "/login",
           }}
         />
-      </Route>
+      </Route>];
     } else {
       return <>
+        <Route path="/login">
+          <Redirect
+            to={{
+              pathname: "/",
+            }}
+          />
+        </Route>
+        <Route path="/register">
+          <Redirect
+            to={{
+              pathname: "/",
+            }}
+          />
+        </Route>
         <Route path="/:category/new_question">
-          <NewQuestion />
+          <Navigation logout={() => this.logout()}>
+            <NewQuestion />
+          </Navigation>
         </Route>
         <Route path="/:category/:question_id/question">
-          <ViewQuestion />
+          <Navigation logout={() => this.logout()}>
+            <ViewQuestion />
+          </Navigation>
         </Route>
         <Route path="/:category/:question_id/answer">
-          <AnswerQuestion />
+          <Navigation logout={() => this.logout()}>
+            <AnswerQuestion />
+          </Navigation>
+        </Route>
+        <Route path="/:category/feed">
+          <Navigation logout={() => this.logout()}>
+            <Main user={this.state.user} logout={() => this.logout()}/>
+          </Navigation>
         </Route>
         <Route path="/">
-          <Main />
+          <Redirect 
+            to={{
+              pathname: "/0/feed",
+            }}
+          />
         </Route>
       </>
     }
@@ -51,12 +104,6 @@ class App extends Component {
   render() {
     return <Router>
         <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Registration />
-          </Route>
           { this.authenticatedRoutes() }
         </Switch>
     </Router>
