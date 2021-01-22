@@ -1,8 +1,6 @@
-import db from './index';
-import { DataTypes } from 'sequelize';
-
-import Question from './question';
-import User from './user';
+import db from './db.js';
+import Sequelize from 'sequelize';
+const { DataTypes } = Sequelize;
 
 const Answer = db.define('Answer', {
     text: {
@@ -10,11 +8,5 @@ const Answer = db.define('Answer', {
         allowNull: false,
     }
 });
-
-
-Answer.belongsTo(Question);
-Answer.belongsTo(User);
-
-Answer.sync();
 
 export default Answer;

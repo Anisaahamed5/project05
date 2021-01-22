@@ -45,7 +45,18 @@ class Registration extends Component {
 
     // Submit the data to the API
     submit() {
+        const data = {
+            username: this.state.username, 
+            password: this.state.password
+        }
 
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });  
     }
 
     render() {

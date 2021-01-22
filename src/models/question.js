@@ -1,8 +1,6 @@
-import db from './index';
-import { DataTypes } from 'sequelize';
-
-import User from './user';
-import Answer from './answer';
+import db from './db.js';
+import Sequelize from 'sequelize';
+const { DataTypes } = Sequelize;
 
 const CATEGORIES = [
     'category1',
@@ -20,11 +18,6 @@ const Question = db.define('Question', {
         allowNull: false,
     }
 });
-
-Question.belongsTo(User);
-Question.hasMany(Answer);
-
-Question.sync();
 
 export { CATEGORIES };
 export default Question;

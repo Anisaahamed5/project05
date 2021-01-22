@@ -1,8 +1,6 @@
-import db from './index';
-import { DataTypes } from 'sequelize';
-
-import Question from './question';
-import Answer from './answer';
+import db from './db.js';
+import Sequelize from 'sequelize';
+const { DataTypes } = Sequelize;
 
 const User = db.define('User', {
     username: {
@@ -15,10 +13,5 @@ const User = db.define('User', {
         allowNull: false
     }
 });
-
-User.hasMany(Question);
-User.hasMany(Answer);
-
-User.sync();
 
 export default User;
