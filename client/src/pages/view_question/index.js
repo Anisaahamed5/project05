@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Loader from 'react-loader-spinner';
+import { Link } from 'react-router-dom';
 
-import { withQuestionId } from '../../utils';
+import { withQuestionId, withCategory, CATEGORIES } from '../../utils';
 
 class ViewQuestion extends Component {
     state = {
@@ -26,13 +26,21 @@ class ViewQuestion extends Component {
     }
 
     render() {
-        return <h1> {this.state.question != null ? this.state.question.text : ""} </h1>;
+        return <>
+            <h1> {this.state.question != null ? this.state.question.text : ""} </h1>
+            
+            <Link to={`/${this.props.questionId}/answer`}>
+                <button className="btn btn-primary mr-2 mt-4">Answer</button>
+            </Link>
+
+            <Link to={`/${this.props.category}/feed`}>
+                <button className="btn btn-secondary mt-4">Back</button>
+            </Link>
+        </>;
     }
 }
 
-
-
-export default withQuestionId(ViewQuestion);
+export default withCategory(withQuestionId(ViewQuestion));
 
 
 

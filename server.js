@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 
 import {register, login} from './src/routes/users.js';
-import {getFeed, getQuestion} from './src/routes/questions.js';
+import {getFeed, getQuestion, createQuestion} from './src/routes/questions.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -51,6 +51,15 @@ app.get('/api/questions/:id', async (req, res) => {
     res.status(404);
     res.send('404: Question Not Found');
   }
+});
+
+// Create a Question
+app.post('/api/questions', async (req, res) => {
+  console.log(req.body);
+  let result = await createQuestion(req.body.user_id, req.body.text, req.body.category);
+  
+  res.status(200);
+  res.send();
 });
 
 if (process.env.NODE_ENV === 'production') {

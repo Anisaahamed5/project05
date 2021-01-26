@@ -36,8 +36,8 @@ export default function Question(props) {
     {/* { props.question.text } */}
         <p className="question-row">
             <span>{ formatDate(props.question.createdAt)}</span>
-            <span>by: {props.question.UserId}</span>
-            <span>{ 2 } Answers</span>
+            <span>by: {props.question.User.username}</span>
+            <span>{ props.question.Answers.length } Answers</span>
         </p>
         <Link to={`/${props.question.id}/question`}>
             <p>{props.question.text}</p>
