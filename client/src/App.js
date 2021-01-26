@@ -70,19 +70,19 @@ class App extends Component {
             }}
           />
         </Route>
-        <Route path="/:category/new_question">
+        <Route path="/:category/:category/new_question">
           <Navigation logout={() => this.logout()}>
             <NewQuestion user={this.state.user} />
           </Navigation>
         </Route>
-        <Route path="/:question_id/question">
+        <Route path="/:category/:question_id/question">
           <Navigation logout={() => this.logout()}>
             <ViewQuestion />
           </Navigation>
         </Route>
-        <Route path="/:question_id/answer">
+        <Route path="/:category/:question_id/answer">
           <Navigation logout={() => this.logout()}>
-            <AnswerQuestion />
+            <AnswerQuestion user={this.state.user} />
           </Navigation>
         </Route>
         <Route path="/:category/feed">

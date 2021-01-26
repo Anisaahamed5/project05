@@ -17,8 +17,16 @@ const createQuestion = async function(user_id, text, category) {
     Question.create({
         text,
         category,
-        user_id
+        UserId: user_id
     })
 }
 
-export { getFeed, getQuestion, createQuestion };
+const answerQuestion = async function(text, user_id, question_id) {
+    Answer.create({
+        text,
+        UserId: user_id,
+        QuestionId: question_id
+    })
+}
+
+export { getFeed, getQuestion, createQuestion, answerQuestion };

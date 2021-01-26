@@ -60,7 +60,7 @@ class Main extends Component {
                 </div>
             ) : (
                 <>
-                    <Link to={`/${this.props.category}/new_question`}>
+                    <Link to={`/${this.props.category}/${this.props.category}/new_question`}>
                         <button className="btn btn-primary new-q-button">New Question</button>
                     </Link>
                     { this.renderQuestions() }

@@ -29,7 +29,7 @@ class ViewQuestion extends Component {
         return <>
             <h1> {this.state.question != null ? this.state.question.text : ""} </h1>
             
-            <Link to={`/${this.props.questionId}/answer`}>
+            <Link to={`/${this.props.category}/${this.props.questionId}/answer`}>
                 <button className="btn btn-primary mr-2 mt-4">Answer</button>
             </Link>
 

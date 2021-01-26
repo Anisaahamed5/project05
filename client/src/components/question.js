@@ -1,5 +1,7 @@
 import './question.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+
+import { CATEGORIES } from '../utils';
 
 export default function Question(props) {
     // props.question = {
@@ -32,14 +34,15 @@ export default function Question(props) {
           return date.toLocaleString('en-US', options);
     }
 
+    const { category } = useParams();
+
     return <div className="question">
-    {/* { props.question.text } */}
         <p className="question-row">
             <span>{ formatDate(props.question.createdAt)}</span>
             <span>by: {props.question.User.username}</span>
             <span>{ props.question.Answers.length } Answers</span>
         </p>
-        <Link to={`/${props.question.id}/question`}>
+        <Link to={`/${category}/${props.question.id}/question`}>
             <p>{props.question.text}</p>
         </Link>
     </div>;

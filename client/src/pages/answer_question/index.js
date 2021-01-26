@@ -37,19 +37,16 @@ class AnswerQuestion extends Component {
         let data = {
             user_id: this.props.user.id,
             text: this.state.text,
-            category: CATEGORIES[this.props.category]
         };
 
-        console.log(data);
-
-        await fetch('/api/questions/' + this.props.questionId + '/answer', {
+        await fetch('/api/questions/' + this.props.questionId, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         }).then(() => {
-            this.props.history.push(`/${this.props.category}/feed`);
+            this.props.history.push(`/${this.props.category}/${this.props.questionId}/question`);
         });
     }
 
@@ -63,7 +60,7 @@ class AnswerQuestion extends Component {
                 
                 <button type="buttons" className="btn btn-primary btn-lg" onClick={(e) => this.handleSubmit(e)}>Submit</button>
                 
-                <Link to={`/${this.props.questionId}/question`}>
+                <Link to={`/${this.props.category}/${this.props.questionId}/question`}>
                     <button type="button" className="btn btn-secondary btn-lg">Back to Question</button>
                 </Link>
             </form>
