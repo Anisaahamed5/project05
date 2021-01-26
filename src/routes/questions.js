@@ -10,7 +10,14 @@ const getFeed = async function(category) {
 }
 
 const getQuestion = async function(id) {
-    return await Question.findByPk(id, {include: [{model: User, required: true}, {model: Answer, required: false}]});
+    return await Question.findByPk(id, {
+        include: [
+            {model: User, required: true}, 
+            {model: Answer, required: false, include: [
+                {model: User, required: true}
+            ]}
+        ]
+    });
 }
 
 const createQuestion = async function(user_id, text, category) {

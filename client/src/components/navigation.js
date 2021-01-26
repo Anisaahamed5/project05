@@ -9,7 +9,7 @@ export default function(props) {
     const { category } = useParams();
 
     return <>
-        <Navbar title={category ? "Q&A App > " + CATEGORIES[category] : "Q&A App"} logout={props.logout}></Navbar>
+        <Navbar title={category ? "Q&A App > " + CATEGORIES[category] : "Q&A App"} logout={props.logout} user={props.user}></Navbar>
         <div className="row">
             <div className="col-md-3">
                 <Sidebar categories={CATEGORIES} category={category}></Sidebar>

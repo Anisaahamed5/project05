@@ -1,7 +1,7 @@
 import './question.css';
 import { Link, useParams } from 'react-router-dom';
 
-import { CATEGORIES } from '../utils';
+import { formatDate } from '../utils';
 
 export default function Question(props) {
     // props.question = {
@@ -12,27 +12,6 @@ export default function Question(props) {
     //     "updatedAt": "2021-01-21T05:53:15.000Z",
     //     "UserId": 1
     // }
-    function formatDate(date) {
-        var date = new Date(date);
-
-        const dateOptions = {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          };
-          const timeOptions = {
-            hour12: true,
-            hour: 'numeric',
-            minute: '2-digit',
-            second: '2-digit',
-          };
-          
-          const options = {
-            ...timeOptions, ... dateOptions
-          };
-          
-          return date.toLocaleString('en-US', options);
-    }
 
     const { category } = useParams();
 

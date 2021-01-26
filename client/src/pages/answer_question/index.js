@@ -34,6 +34,8 @@ class AnswerQuestion extends Component {
     async handleSubmit(e) {
         e.preventDefault();
 
+        if(this.state.text == "") return;
+
         let data = {
             user_id: this.props.user.id,
             text: this.state.text,

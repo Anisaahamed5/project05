@@ -14,4 +14,26 @@ export function withQuestionId(Component) {
     }
 }
 
+export function formatDate(date) {
+  var date = new Date(date);
+
+  const dateOptions = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+    const timeOptions = {
+      hour12: true,
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+    };
+    
+    const options = {
+      ...timeOptions, ... dateOptions
+    };
+    
+    return date.toLocaleString('en-US', options);
+}
+
 export const CATEGORIES = ["Cat1", "Cat2", "Cat3", "Cat4", "Cat5"]
