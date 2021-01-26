@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 
 import {register, login} from './src/routes/users.js';
+import {getFeed, getQuestion} from './src/routes/questions.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -32,6 +33,24 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   let result = await login(req.body.username, req.body.password);
   res.send(result);
+});
+
+// Get Questions for category
+app.get('/api/:category/feed', async (req, res) => {
+  let result = await getFeed(req.params.category);
+  res.send(result);
+});
+
+// Get a Question
+app.get('/api/questions/:id', async (req, res) => {
+  let result = await getQuestion(req.params.id);
+
+  if(result != null) {
+    res.send(result);
+  } else {
+    res.status(404);
+    res.send('404: Question Not Found');
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {

@@ -75,12 +75,12 @@ class App extends Component {
             <NewQuestion />
           </Navigation>
         </Route>
-        <Route path="/:category/:question_id/question">
+        <Route path="/:question_id/question">
           <Navigation logout={() => this.logout()}>
             <ViewQuestion />
           </Navigation>
         </Route>
-        <Route path="/:category/:question_id/answer">
+        <Route path="/:question_id/answer">
           <Navigation logout={() => this.logout()}>
             <AnswerQuestion />
           </Navigation>

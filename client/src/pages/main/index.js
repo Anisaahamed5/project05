@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { useParams } from "react-router-dom";
+import Loader from 'react-loader-spinner';
 
-import Loader from 'react-loader-spinner'
+import Question from '../../components/question';
+
+import { withCategory, CATEGORIES } from '../../utils';
 
 class Main extends Component {
     state = {
@@ -9,12 +11,31 @@ class Main extends Component {
         loading: false
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.updateFeed();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.category !== this.props.category) {
+          this.updateFeed();
+        }
+    }
+
+    async updateFeed() {
         this.setState({loading: true});
 
-        let { category } = useParams();
-        let response = await fetch('/api/feed/' + category, {
+        let questions = await fetch('/api/' + CATEGORIES[this.props.category] + '/feed', {
             method: 'GET'
+        }).then((res) => {
+            return res.json();
+        });
+
+        this.setState({questions, loading: false})
+    }
+
+    renderQuestions() {
+        return this.state.questions.map((q) => {
+            return <Question question={q} />
         });
     }
 
@@ -30,10 +51,10 @@ class Main extends Component {
                     />
                 </div>
             ) : (
-                <h1>Loaded!</h1>
+                this.renderQuestions()
             )
         )
     }
 }
 
-export default Main;
+export default withCategory(Main);
